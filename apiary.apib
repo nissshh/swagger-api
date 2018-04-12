@@ -1,0 +1,791 @@
+FORMAT: 1A
+HOST: http://repo.sei.com/
+
+# Repo on Blockchain
+
+The POC will demonstrate the ability to initiate, validate, distribute and settle Overnight, 
+Term and Open-Ended Repo Trade Agreements via Distributed Ledger Technology (DLT).  
+
+## Collateral[/collaterals]
+
+### Add Collateral [POST /collateral]
+
+    This end point will add/create the collateral
++ Request (application/json)
+    + Attributes (Collateral)
++ Response 200 
+
+### Get All Collaterals [GET /collaterals]
+
+This end point fetches all collaterals available in directory
++ Response 200 (application/json)
+    + Attributes (array[Collaterals])
+    
+
+### Get a specific Collateral [GET /collaterals/{collateral_id}]
+
+This end point fetch a specific collateral on it collateral id
+ + Parameters
+    + collateral_id (required, string) ...Id of collateral
+ + Response 200 (application/json)
+       + Attributes (Collaterals)    
+       
+
+### Get Collateral on search Criteria [GET /collaterals/{criteria}]
+
+This end point fetches collatrals on the basis of criteria
+ + Parameters
+   + criteria (required,string) 
+ + Response 200 (application/json)
+   + Attributes (array[Collaterals])
+   
+
+### Get History for a specific collateral [GET /collaterals/{collateral_id}/history]    
+    
+    This end point fetches a specific collateral history 
++ Parameters
+   + collateral_id (required, string) ...Id of the collateral
++ Response 200 (application/json)
+   + Attributes (AssetHistory)
+   
+   
+
+### Delete a specific collateral [DELETE /collaterals/delete/{collateral_id}]
+
+This end point remove the collateral on the basis of collateral id
++ Parameters 
+   + collateral_id (required,string) ...Id of collateral
++ Response 200 
+   
+   
+
+### Add collateral details to running balance table [PUT /collaterals/{collateralId}/pledge]
+This end point will add collateral details of a particular collateral to the running balance table        
++ Parameters
+  + collateralId (required, string) ... collateral id of collateral  
++ Response 200 (application/json)
+    + Attributes (Collaterals) 
+
+### Remove any row from running table  [PUT /collaterals/substitute]
+This end point will remove selected row from running table when im clicks on Substitute button
++ Response 200 (application/json)
+    + Attributes (Collaterals)   
+    
+
+### Export Collaterals [GET /collaterals/export]
+This end point will export all Collateral in CSV format.
+
++ Response 200 (text/csv)
+  + Attributes (Collaterals)
+
+### Get All Collaterals for a specific Counter Party [GET /collaterals/{cpty_id}]
+
+This end point fetches all collaterals available for Specific Counter Party. This is only invoked 
+from SEI Node
++ Parameters
+  + cpty_id (required, string) ... Hash of the transaction  
++ Response 200 (application/json)
+    + Attributes (array[Collaterals])
+
+## /user
+
+### Logout [GET /user/logout/{user_name}]
+This end point will provide logout functinality
++ Parameters
+  + user_name (required, string) ... user name of user
++ Response 200
+
+### Login [POST /user/login]
+This end point will provide login functinality
++ Request (application/json)
+    + Attributes (UserDetails)
++ Response 200
+
+### Get all trades [POST /user/trades] 
+This end point fetched all the trades
++ Response 200 (application/json)
+   + Attributes (array[Trade])
+   
+
+### Get all trades for a specific trade Id  [GET /user/trades/{trade_id}]
+This end point fetches all trades for a specific trade id
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200 (application/json)
+    + Attributes (Trade)   
+
+
+### Delete a specific collateral [DELETE /user/trades/{trade_id}/collaterals/{collateralId}]
+This end point will delete a specified collateral of a trade 
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
+  + collateralId (required, string) ... collateral id of collateral  
++ Response 200    
+        
+        
+
+### Add collateral details to running balance table [PUT /user/trades/{trade_id}/collaterals/{collateralId}/pledge]
+This end point will add collateral details of a particular collateral to the running balance table        
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
+  + collateralId (required, string) ... collateral id of collateral  
++ Response 200 (application/json)
+    + Attributes (Collateral) 
+
+### Remove any row from running table  [POST /user/trades/{trade_id}/collaterals/substitute]
+This end point will remove any row from running table when im clicks on Substitute button
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200 (application/json)
+    + Attributes (Collateral) 
+
+### Cancel the trade [POST /user/trades/{trade_id}/cancel]
+This end point will provide the facility to cancel the trade
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200 (application/json)
+    + Attributes (Trade) 
+
+### Rollover the trade [PUT /user/trades/{tradeId}/rollover]
+This end point will rollover the trade
++ Parameters
+  + tradeId (required, string) ... trade id of trade  
++ Response 200 (application/json)
+    + Attributes (Trade) 
+    
+
+### User confirmation in trade termination [GET /user/trades/{trade_id}/terminate]
+This end point will ask confirmation to user and give some information
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200 (application/json)
+    + Attributes (TradeTerminatation) 
+    
+
+### Terminate the trade [POST /user/trades/{trade_id}/terminate]    
+This end point will terminate the trade
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200 
+
+### Get trade instructions [GET /user/trade-instructions]
+This end point fetches all the trade details
++ Response 200 (application/json)
+    + Attributes (Trade) 
+    
+
+### Get history of specific collateral [GET /user/collateral-directory/collaterals/history]
+ 
+This end point will fetch history of specific Collateral on the basis of collateral id.
++ Response 200 (text/csv)
+  + Attributes (AssetHistory)
+
+
+### Add Collateral [POST /user/collateral-directory/collaterals/add]
+
+This end point will add/create the Collateral.
++ Request (application/json)
+   + Attributes (Collateral)
++ Response 200
+
+### Get All Collaterals [GET /user/collateral-directory/collaterals]
+
+This end point will fetch all Collaterals.
++ Response 200 (application/json)
+   + Attributes (Collateral)
+   
+  
+
+### Get collaterals of a specific trade [GET /user/trades/{trade_id}/collaterals]
+This end point fetch  collaterals of a specific trade
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200(application/json)
+   + Attributes (Collateral)  
+
+### Substitution flow [PUT /user/trades/{trade_id}/collaterals/substitute]
+This end point will redirect user to substituion flow.
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200  
+
+### Get portfolio details [GET /user/portfolio]    
+This end point fetchs portfolio details
++ Response 200 (application/json)
+   + Attributes (IMPortfolio)
+    
+
+    
+### Get trades as per specified trade status [GET /user/portfolio/trades/status/{tradeStatus}]
+This end point fetches trades of a specified trade status
++ Parameters
+    + tradeStatus (required, string) ... trade id of trade  
++ Response 200 (application/json)
+   + Attributes (array[PortfolioTradeDetails])   
+   
+## /trades
+
+### Get all trades [GET /trades]
+This end point fetches all trades
++ Response 200 (application/json)
+    + Attributes (Trade) 
+       
+
+### Get all trades for a specific trade Id [GET /trades/{tradeId}]
+This end point fetches all trades for a specific trade id
++ Parameters
+  + tradeId (required, string) ... trade id of trade  
++ Response 200 (application/json)
+    + Attributes (Trade)
+
+### Get all trades for a specific trade status [GET /status/{tradeStatus}]
+This end point fetches all trades for a specific trade status
++ Parameters
+  + tradeStatus (required, string) ... trade status
++ Response 200 (application/json)
+    + Attributes (Trade)
+
+### Get all collaterals of trade [GET /collaterals]
+This end point fetches all collaterals for trade
++ Response 200 (application/json)
+    + Attributes (Trade)
+        
+### Delete a particular collateral [DELETE /trades/{tradeId}/collaterals/{collateralId}]
+This end point will delete a specified collateral
++ Parameters
+  + tradeId (required, string) ... trade id of trade  
+   + collateralId (required, string) ... collateral id of collateral 
++ Response 200
+
+## /bank
+
+### Get all trades for a specific trade  [POST /bank/trades]
+This end point fetches all trades for a specific trade id and trade status
++ Request (application/json)
+  + Attributes (TradeRequest)
++ Response 200 (application/json)
+    + Attributes (Trade)   
+
+### Get all trades [GET /bank/trades]
+This end point fetches all trades
++ Response 200 (application/json)
+    + Attributes (array[Trade]) 
+    
+
+### Get trade for a specific trade Id [GET /bank/trades/{trade_id}]
+This end point fetches all trades for a specific trade id
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200 (application/json)
+    + Attributes (Trade)   
+    
+
+### Get History of specific collateral [GET /bank/collateral-directory/collaterals/{collateral_id}/history]    
+This end point will fetch the History of specific Collateral.
++ Parameters
+   + collateral_id (required, string) ...collateral id of Collateral
++ Response 200 (application/json)
+   + Attributes (AssetHistory)
+   
+
+
+### Get portfolio details [GET /bank/portfolio]    
+This end point fetchs portfolio details
++ Response 200 (application/json)
+   + Attributes (BankPortfolio)
+
+### Get exposures data [GET /bank/exposures]
+This end point fetched exposures data
++ Response 200 (application/json)
+   + Attributes (array[BankExposures])   
+
+### Get all collaterals [GET /bank/collateral-directory]
+This end point will fetches all the collaterals
++ Response 200 (application/json)
+   + Attributes (array[Collaterals])   
+
+
+## /im
+
+### Get Collateral id [GET /im/collateral-directory/collaterals/generateId]
+This end point will provide the id of collateral when user click on Add new button.
++ Response 200 (application/json)
+
+  
+    + Body
+
+            {"collateralId":"12345"}
+
+### Get all trades for a specific trade Id  [GET /im/trades/{tradeId}]
+This end point fetches all trades for a specific trade id
++ Parameters
+  + tradeId (required, string) ... trade id of trade  
++ Response 200 (application/json)
+    + Attributes (array[Trade])   
+
+
+### Delete a specific collateral [DELETE /im/trades/{trade_id}/collaterals/{collateralId}]
+This end point will delete a specified collateral of a trade 
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
+  + collateralId (required, string) ... collateral id of collateral  
++ Response 200    
+        
+        
+
+### Add collateral details to running balance table [PUT /im/trades/{trade_id}/collaterals/{collateralId}/pledge]
+This end point will add collateral details of a particular collateral to the running balance table        
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
+  + collateralId (required, string) ... collateral id of collateral  
++ Response 200 (application/json)
+    + Attributes (Collateral) 
+
+### Remove any row from running table  [POST /im/trades/{tradeId}/collaterals/substitute]
+This end point will remove any row from running table when im clicks on Substitute button
++ Parameters
+  + tradeId (required, string) ... trade id of trade  
++ Response 200 (application/json)
+    + Attributes (Collateral) 
+
+### Cancel the trade [POST /im/trades/{trade_id}/cancel]
+This end point will provide the facility to cancel the trade
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200 (application/json)
+    + Attributes (Trade) 
+
+### Rollover the trade [POST /im/trades/{trade_id}/rollover]
+This end point will rollover the trade
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200 (application/json)
+    + Attributes (Trade) 
+    
+
+### User confirmation in trade termination [GET /im/trades/{trade_id}/terminate]
+This end point will ask confirmation to user and give some information
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200 (application/json)
+    + Attributes (TradeTerminatation) 
+    
+
+### Terminate the trade [POST /im/trades/{trade_id}/terminate]    
+This end point will terminate the trade
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200 
+
+### Get trade instructions [GET /im/trade-instructions]
+This end point fetches all the trade details
++ Response 200 (application/json)
+    + Attributes (Trade) 
+    
+
+### Get history of specific collateral [GET /im/collateral-directory/collaterals/{collateral_id}/history]
+ 
+This end point will fetch history of specific Collateral on the basis of collateral id.
++ Parameters 
+   + collateral_id (required,string) ...collateral id of Collateral
++ Response 200 (application/json)
+  + Attributes (AssetHistory)
+
+
+### Add Collateral [POST /im/collateral-directory/collaterals/add]
+
+This end point will add/create the Collateral.
++ Request (application/json)
+   + Attributes (Collateral)
++ Response 200
+
+### Get All Collaterals [GET /im/collateral-directory/collaterals]
+
+This end point will fetch all Collaterals.
++ Response 200 (application/json)
+   + Attributes (Collateral)
+   
+   
+
+### Get Collaterals on criteria [GET /im/collateral-directory/collaterals/{criteria}]   
+
+This end point will provide collaterals on the basis of criteria.
++ Parameters
+    + criteria (required,string) 
++ Response 200 (application/json)
+   + Attributes (Collateral)
+    
+
+### Export Collaterals [GET /im/collateral-directory/collaterals/export]
+This end point will get export collaterals in CSV file.  
+
++ Response 200 (text/csv)
+   + Attributes (Collateral)
+    
+
+### Get collaterals of a specific trade [GET /im/trades/{trade_id}/collaterals]
+This end point fetch  collaterals of a specific trade
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200  
+
+### Substitution flow [PUT /im/trades/{trade_id}/collaterals/substitute]
+This end point will redirect user to substituion flow.
++ Parameters
+  + trade_id (required, string) ... trade id of trade  
++ Response 200  
+
+### Get portfolio details [GET /im/portfolio]    
+This end point fetches portfolio details
++ Response 200 (application/json)
+   + Attributes (IMPortfolio)
+
+
+### Initiate a trade [POST /im/trades]
+This end point will create a new trade
++ Request (application/json)
+   + Attributes (Trade)
++ Response 200  
+
+### Get exposures data [GET /im/exposures]
+This end point fetched exposures data
++ Response 200 (application/json)
+   + Attributes (array[exposures])   
+
+## /app-hearder
+
+## Application Header Information [GET /app-hearder]
+This end point fetched header information
++ Response 200 (application/json)
+   + Attributes (AppHeader)
+
+## /exposures
+### Exposure data [GET /exposures]   
+This end point fetched exposures data
++ Response 200 (application/json)
+   + Attributes (array[exposures])   
+
+
+## /collateral-directory
+
+### Get collateral directory [GET]
+This end point will redirect to the collateral-directory and get list of collateral
++ Response 200 (application/json)
+   + Attributes (array[Collaterals])
+
+## /custodian
+### Get all trades data [GET /custodian/trades]
+This end point fetches all the trades
++ Response 200 (application/json)
+   + Attributes (array[Trade])   
+   
+
+### Get settlement details [GET /custodian/settlements]
+This end point fetches settlements details
++ Response 200 (application/json)
+   + Attribute (Settlement)
+
+
+### Get specific Collateral on trade id [GET /custodian/settlements/trades/{tradeId}/collaterals]
+this end point will fetch specific Trade row with Pending status
++ Parameters 
+   + tradeId (required,string) ...trade id of trade
++ Response 200 (application/json)   
+   + Attributes (Collateral)
+   
+
+### Get trade list on the status [GET /custodian/settlements/trades/status/{tradeStatus}]   
+This end point will provide list of trade on the basis of status
++ Parameters 
+  + tradeStatus (required,string) ...status of trade
++ Response 200 (application/json)
+  + Attributes (array[Trade])
+    
+   
+### Get collaterals of a particualt trade [GET /custodian/trades/{tradeId}/collaterals]
+This end point fetches collaterals data for a particualr trade
++ Parameters 
+  + tradeId (required,string) ...status of trade
++ Response 200 (application/json)
+  + Attributes (array[CustodianCollateralDetails])
+    
+### Go to trade instruction page [GET /custodian/trade-instructions]
+This end point redirects to trade instruction page
++ Response 200 (application/json)
+  + Attributes (Trade)
+  
+  
+  
+
+## /networkTime
+
+### Get offset time [GET /networkTime/getOffset]
+This end point will provide the updated offset value.
+
++ Response 200 (application/json)
+
+  
+    + Body
+
+            {"offset":"1234567898"}
+            
+### Change the network time [POST /custodian/networkTime/{offset}] 
+This end point will change the offset value and update in the vault.
++ Parameters 
+  + offset (required,string) ...changed offset value
++ Response 200  
+
+# Data Structures
+
+## Collaterals (object)
+
+- `collateralId`:`1` (number) - Internal ID for this Collateral
+- `assetOwner` (AssetOwner) - Owner of the asset Refers to Asset Owner object
+- `cusip`: `ABC12412` (string) - Auto generated after Submit Trade
+- `asset`: `assetName` (string) - Name of the asset
+- `expiryDate`:`12-3-2017` (string) - Expiry of the asset
+- `parValue`: `123.67` (number) - Par value of asset 
+- `originalFace`: `123.67` (number) -The par value at the time of issuance
+- `purchaseCost`: `123.67` (number) - Purchase cost of this asset  
+- `locationReg`:`REG1235` (string)
+- `pledge`: `` (string) 
+- `collateralStatus`: `` (string) - Status of the collateral. Possible values are "Pending, Validated, Transfer Confirmed, Returned"
+- `dttccConfirm`: `true` (boolean)  - Flag to record if the DTCC confirmation received
+- `dtccRefId`: `1234` (number) -DTCC confirmation number
+- `comments`: `comments` (string) 
+
+
+## Collateral (object)
+
+- `assetOwner` (AssetOwner) - Owner of the asset Refers to Asset Owner object
+- `cusip`: `ABC12412` (string) - Auto generated after Submit Trade
+- `asset`: `assetName` (string) - Name of the asset
+- `expiryDate`:`12-3-2017` (string) - Expiry of the asset
+- `parValue`: `123.67` (number) - Par value of asset 
+- `originalFace`: `123.67` (number) -The par value at the time of issuance
+- `purchaseCost`: `123.67` (number) - Purchase cost of this asset  
+- `comments`: `comments` (string) 
+
+
+## AssetHistory (object)
+
+- `tradeId`: `1234` (string) -trade id
+- `cusip`: `ABC12412` (string) - Auto generated after Submit Trade
+- `counterparty` : `CounterParty A` (string) - Name of the counterparty
+- `settleDate`:`15-01-2018` (string) - Date and Time of the trade settled 
+- `term`: `1 week` (string) - Term details of this trade. Possible values are “Week, 2 Weeks, 3 Weeks, 1 Month, Open Ended”
+- `agreementParValue`: `$1,000,000.00` (string) - Par value of the repurchase agreement
+- `principal`: `$1,000,000.00` (string) - Value of Agreement par multiplied by unitPrice
+- `tradeStatus`: `Pending` (string) - status of the trade
+- `agreementParValue`: `$1,000,000.00` (string) - Par value of the repurchase agreement
+
+## AssetOwner (object)
+- `assetOwnerID` (number) - Autogenerated unique identifier of the AssetOwner
+- `assetOwnerName` (string) - Name of the asset owner
+
+## UserDetails (object)
+
+- 'userName' : user (string) - user name/email of user
+- 'password' : 'user123' (string) - password 
+
+## Trade  (object)
+
+- `linearId` (string) - Internal ID for this trade
+- `account` (array[Account]) - References the account details of this trade.
+- `collaterals` (array[Collateral]) - List of collaterals used for this trade
+- `counterparty` : `CounterParty A` (string) - Name of the counterparty
+- `tradeDate`:`15-01-2018` (string) - Date and Time of the trade entered
+- `settleDate`:`15-01-2018` (string) - Date and Time of the trade settled 
+- `Trader`:`123` (number) - Identifier of the Trader
+- `expiryDate`:`19-01-2018` (string) - Date and Time of the expiry of this trade
+- `term`: `1 week` (string) - Term details of this trade. Possible values are “Week, 2 Weeks, 3 Weeks, 1 Month, Open Ended”
+- `broker`: `Broker 1` (string) - Name of the broker
+- `FINS#`: `1 week` (string) - Term details of this trade. Possible values are “Week, 2 Weeks, 3 Weeks, 1 Month, Open Ended”
+- `agreementCUSIP `: `agreement_CUSIP` (string) - Ticker symbol of an asset model
+- `rate`: `2.343` (number) - Rate in percentage
+- `agreementParValue`: `$1,000,000.00` (string) - Par value of the repurchase agreement
+- `unitPrice`: `100` (number) - Value in Percentage
+- `principal`: `$1,000,000.00` (string) - Value of Agreement par multiplied by unitPrice
+- `interest `: `8.3` (number) - Interest value
+- `interestValidation `: `Interest Validation` (string) - Interest validation
+- `interestType `: `UNIT` (string) - Types of interests
+- `paymentMethod `: `Wire` (string) - Method of Payment
+- `terminationFee `: `$1,000.00` (string) - Termination Fee of this contract
+- `miscellaneousFee1 `: `$00.00` (string) - Any miscellaneous Fees for this trade
+- `miscellaneousFee2 `: `$00.00` (string) - Any miscellaneous Fees for this trade
+- `tradeStatus`: `Pending` (string) - status of the trade
+- `collateralStatus`: `Validated` (string) - Overall Collateral Status
+
+## Account(object)
+
+- `account_id` (number) - Acuto generated ID of the account
+- `portfolioName_type`:`Principal` (string) - Name or Type of the portfolio. 
+- `location`:`USA` (string) - The location of the account
+- `settlement_location` : `USA` (string) - Where the trade will settle
+- `registration`:`Reg101` (string) - Registration code of the account
+- `accountPV`:`$1,000.00` (string) - Par value of the account
+- `explanation`:`Explation` (string) - Explanation
+- `percentOfTotal`:`50` (number) - Percentage in proportion of Agreement Par Values
+
+## TradeTerminatation(object)
+
+- `Principal Due`:`$10000` (string)
+- `Interest Due`:`$100000` (string) 
+- `Interest reduction against full maturity amount`:`5.00` (number) 
+- `Termination fee` : `$50000` (string)
+
+## TradeRequest
+
+- `trade_id`:`1` (number)
+- `trade_status`:`Pending` (string)
+
+
+## AppHeader
+
+- `Date & Time`:`12-03-2017 01:01:01` (string)
+- `Current Actor`:`IM` (string)
+- `List of Users`:`IM`,`Bank`, `Custodian` (array[string])
+
+## IMPortfolio
+
+- `Total Trades`:`500` (number)
+- `Total Accounts`:`100`
+- `Total Value`:`250.00`
+- `Total Collateral Pieces`:`150`
+- `Pending`:`200`
+- `Failed`:`100`
+- `Live`:`100`
+- `Expired`:`100`
+- `Trade` (array[IMPortfolioTradeDetails],required)
+
+
+## IMPortfolioTradeDetails
+
+- `Trade ID`:`101`
+- `CUSIP`:`ABC12412`
+- `Collateral Pieces`:`100`
+- `Settlement Date`:`12-01-2018`
+- `Term`:`1 week`
+- `Principal`:`$1,000,000.00`
+- `Interest Payable`:`8.3`
+- `Settlement Status`:`Pending`
+- `Trade Status`:`Live`
+- `Action`:`Substitute`
+
+
+## Settlement
+
+- `Total Trades`:`500` (number)
+- `Total Accounts`:`100`
+- `Total Value`:`250.00`
+- `Total Collateral Pieces`:`150`
+- `Pending`:`200`
+- `Failed`:`100`
+- `Live`:`100`
+- `Expired`:`100`
+- `Trade` (array[SettlementTradeDetails],required)
+
+
+## SettlementTradeDetails
+
+- `Trade ID`:`101`
+- `CUSIP`:`ABC12412`
+- `Collateral Pieces`:`100`
+- `Settlement Date`:`12-01-2018`
+- `Term`:`1 week`
+- `Principal`:`$1,000,000.00`
+- `Interest Payable`:`8.3`
+- `Settlement Status`:`Pending`
+- `Trade Status`:`Live`
+
+
+## exposures
+
+- `Payment History` (array[paymentHistory])
+- `Exposure Data` (array[exposure data])
+
+## paymentHistory
+
+- `Trade ID`:`101` (number)
+- `Counterparty`:`WF` (string)
+- `Transaction Type`:`t1` (string)
+- `Transaction Date`:`12-01-2018` (string)
+- `Amount`:`1234` (string)
+
+## exposure data
+
+- `Counterparty`:`CP1`
+- `Due`:`120`
+- `+1 Day`:`23`
+- `+3 Day`:`20`
+- `+7 Day`:`18`
+
+## CustodianCollateralDetails
+
+- `ID`:`1`
+- `Asset`:`assetName` (string) - Name of the asset
+- `assetOwner` (AssetOwner) - Owner of the asset Refers to Asset Owner object
+- `Par Value`:`123.67` (number) - Par value of asset 
+- `Original Face`: `123.67` (number) -The par value at the time of issuance
+- `Purchase Cost`:`123.67` (number) - Purchase cost of this asset  
+- `LocationReg`:`` (string)
+- `Collateral Status`:`Pending`
+
+## BankExposures
+
+- `Payment History` (array[BankPaymentHistory])
+- `Exposure Data` (array[BankExposureData])
+
+## BankPaymentHistory
+
+- `Trade ID`:`101` (number)
+- `Counterparty`:`IM1` (string)
+- `Transaction Type`:`t1` (string)
+- `Transaction Date`:`12-01-2018` (string)
+- `Amount`:`1234` (string)
+
+## BankExposureData
+
+- `Counterparty`:`CP1`
+- `Due`:`120`
+- `+1 Day`:`23`
+- `+3 Day`:`20`
+- `+7 Day`:`18`
+
+
+## AddCollateral
+
+- `assetOwner`:`Name`
+- `cusip`:`ABC12412`
+- `asset`:`assetName`
+- `expiryDate`:`12-3-2017`
+- `parValue`:`123.67`
+- `originalFace`:`123.67`
+- `purchaseCost`:`123.67`
+- `location_reg`:`REG1235`
+- `collateralStatus`:``
+
+## BankPortfolio
+
+- `Total Trades`:`500` (number)
+- `Total Accounts`:`100`
+- `Total Value`:`250.00`
+- `Total Collateral Pieces`:`150`
+- `Pending`:`200`
+- `Failed`:`100`
+- `Live`:`100`
+- `Expired`:`100`
+- `Trade` (array[BankPortfolioTradeDetails],required)
+
+
+## BankPortfolioTradeDetails
+
+- `Trade ID`:`101`
+- `CUSIP`:`ABC12412`
+- `Collateral Pieces`:`100`
+- `Settlement Date`:`12-01-2018`
+- `Term`:`1 week`
+- `Principal`:`$1,000,000.00`
+- `Interest Payable`:`8.3`
+- `Settlement Status`:`Pending`
+- `Trade Status`:`Live`
